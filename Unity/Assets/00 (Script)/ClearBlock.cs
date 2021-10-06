@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class ClearBlock : MonoBehaviour
 {
+    public Material clearhalf;
     public Material clear;
     public Camera camera;
     public LayerMask block;
     public LayerMask player;
     RaycastHit rayhit;
     Ray ray;
+
+    GameObject falligblock;
 
     public float rayDistance = 82f;
 
@@ -24,12 +27,13 @@ public class ClearBlock : MonoBehaviour
         if (Physics.Raycast(ray, out rayhit, rayDistance, block))
         {
             Debug.DrawLine(ray.origin, rayhit.point, Color.red);
-            //clear.color = new Color(190, 190, 190, 100);
+            falligblock = rayhit.transform.gameObject;
+            rayhit.transform.GetComponent<MeshRenderer>().material = clearhalf;
         }
         else if (Physics.Raycast(ray, out rayhit, rayDistance, player))
         {
             Debug.DrawLine(ray.origin, rayhit.point, Color.red);
-            //clear.color = new Color(190, 190, 190, 255);
+            //falligblock.GetComponent<MeshRenderer>().material = clear;
         }
     }
 }
