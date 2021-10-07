@@ -16,4 +16,9 @@ public class FallingBlock : MonoBehaviour
             
         }
     }
+
+    public void breakBlock()
+    {
+        Destroy(this.gameObject);
+    }
 }

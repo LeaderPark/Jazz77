@@ -36,4 +36,9 @@ public class ClearBlock : MonoBehaviour
             //falligblock.GetComponent<MeshRenderer>().material = clear;
         }
     }
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
+    }
 }

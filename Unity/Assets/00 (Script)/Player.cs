@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpPower = 5f;
 
+    public Transform jumpRayPoint;
     Rigidbody rigid;
     Vector3 movement;
     float h, v;
+
+    RaycastHit rayhit;
 
     void Start()
     {
@@ -21,11 +24,18 @@ public class Player : MonoBehaviour
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
         
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Physics.Raycast(jumpRayPoint.position, Vector3.down, 0.2f) && rigid.velocity.y <= 0)
         {
-            Jump();
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
         }
+
+        Debug.DrawRay(jumpRayPoint.position, Vector3.down, Color.red, 0.2f);
+        Debug.Log(rigid.velocity.y);
     }
+
     void FixedUpdate()
     {
         Move();
@@ -47,5 +57,10 @@ public class Player : MonoBehaviour
     public void touchblock()
     {
 
+    }
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
     }
 }
