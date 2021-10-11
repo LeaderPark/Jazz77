@@ -9,6 +9,7 @@ public class DeathPlace : MonoBehaviour
         if(col.gameObject.CompareTag("Player"))
         {
             col.gameObject.GetComponent<Player>().Die();
+            GameObject.Find("UIManager").GetComponent<UIManager>().gameoverUI();
         }
         else if(col.gameObject.CompareTag("Block"))
         {

@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
         }
 
         Debug.DrawRay(jumpRayPoint.position, Vector3.down, Color.red, 0.2f);
-        Debug.Log(rigid.velocity.y);
     }
 
     void FixedUpdate()
@@ -61,6 +60,6 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Destroy(this.gameObject);
+
     }
 }
