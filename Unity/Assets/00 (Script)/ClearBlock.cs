@@ -18,7 +18,7 @@ public class ClearBlock : MonoBehaviour
 
     void Start()
     {
-        camera = GetComponent<Camera>();
+
     }
 
     private void Update()
@@ -37,8 +37,5 @@ public class ClearBlock : MonoBehaviour
         }
     }
 
-    public void Die()
-    {
-        Destroy(this.gameObject);
-    }
+
 }
