@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpPower = 5f;
 
+    private bool isDie = false;
+
     public Transform jumpRayPoint;
     Rigidbody rigid;
     Vector3 movement;
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody>();
         this.transform.position = GameObject.Find("SpawnPoint").transform.position;
+        isDie = false;
     }
     void Update()
     {
@@ -26,7 +29,7 @@ public class Player : MonoBehaviour
         
         if (Physics.Raycast(jumpRayPoint.position, Vector3.down, 0.2f) && rigid.velocity.y <= 0)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) && !isDie)
             {
                 Jump();
             }
@@ -37,7 +40,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if(!isDie)
+        {
+            Move();
+        }  
     }
 
 
@@ -53,13 +59,8 @@ public class Player : MonoBehaviour
         rigid.MovePosition(transform.position + movement);
     }
 
-    public void touchblock()
-    {
-
-    }
-
     public void Die()
     {
-
+        isDie = true;
     }
 }
