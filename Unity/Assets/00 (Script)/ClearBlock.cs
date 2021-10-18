@@ -1,11 +1,13 @@
+using System.Collections.ObjectModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class ClearBlock : MonoBehaviour
 {
-    public Material clearhalf;
-    public Material clear;
+
     public Camera camera;
     public LayerMask block;
     public LayerMask player;
@@ -16,26 +18,14 @@ public class ClearBlock : MonoBehaviour
 
     public float rayDistance = 82f;
 
-    void Start()
-    {
-
-    }
-
     private void Update()
     {
         ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.49f, 0.5f));
+        
         if (Physics.Raycast(ray, out rayhit, rayDistance, block))
         {
-            Debug.DrawLine(ray.origin, rayhit.point, Color.red);
-            falligblock = rayhit.transform.gameObject;
-            rayhit.transform.GetComponent<MeshRenderer>().material = clearhalf;
-        }
-        else if (Physics.Raycast(ray, out rayhit, rayDistance, player))
-        {
-            Debug.DrawLine(ray.origin, rayhit.point, Color.red);
-            //falligblock.GetComponent<MeshRenderer>().material = clear;
+            Debug.DrawRay(ray.origin, rayhit.point, Color.red, 10f);
+            rayhit.transform.GetComponent<FallingBlock>().isAlpha = true;
         }
     }
-
-
 }

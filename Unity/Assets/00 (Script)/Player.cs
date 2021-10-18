@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public float jumpPower = 5f;
 
     private bool isDie = false;
-
     public Transform jumpRayPoint;
     Rigidbody rigid;
     Vector3 movement;
