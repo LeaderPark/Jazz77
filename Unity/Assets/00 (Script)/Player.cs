@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private bool isDie = false;
     public Transform jumpRayPoint;
     Rigidbody rigid;
-    Vector3 movement;
-    float h, v;
+    Vector3 movement;   
+    float x, z;
 
     RaycastHit rayhit;
 
@@ -23,16 +23,21 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        h = Input.GetAxisRaw("Horizontal");
-        v = Input.GetAxisRaw("Vertical");
+        transform.localPosition = ClampPosition(transform.localPosition);
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
         
-        if (Physics.Raycast(jumpRayPoint.position, Vector3.down, 0.2f) && rigid.velocity.y <= 0)
+        if(!isDie)
         {
-            if(Input.GetKeyDown(KeyCode.Space) && !isDie)
+            if (Physics.Raycast(jumpRayPoint.position, Vector3.down, 0.2f) && rigid.velocity.y <= 0)
             {
-                Jump();
+                if(Input.GetKeyDown(KeyCode.Space))
+                {
+                    Jump();
+                }
             }
         }
+
 
         Debug.DrawRay(jumpRayPoint.position, Vector3.down, Color.red, 0.2f);
     }
@@ -42,9 +47,8 @@ public class Player : MonoBehaviour
         if(!isDie)
         {
             Move();
-        }  
+        }
     }
-
 
     void Jump()
     {
@@ -53,13 +57,25 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        movement.Set(h, 0f, v);
-        movement = movement.normalized * moveSpeed * Time.deltaTime;
-        rigid.MovePosition(transform.position + movement);
+        // movement.Set(h, 0f, v);
+        // movement = movement.normalized * moveSpeed * Time.deltaTime;
+        // rigid.MovePosition(transform.position + movement);'
+        transform.Translate(new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
     }
 
     public void Die()
     {
         isDie = true;
+    }
+
+    public Vector3 ClampPosition(Vector3 position)
+    {
+        return new Vector3
+        (
+            // 좌우로 움직이는 이동범위
+            Mathf.Clamp(position.x, -1.8f, 1.8f),
+            Mathf.Clamp(position.y, -10f, 100f),
+            Mathf.Clamp(position.z, 2.2f, 5.8f)
+        );
     }
 }

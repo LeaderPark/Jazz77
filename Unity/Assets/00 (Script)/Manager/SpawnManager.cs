@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public float spawnTime = 5f;
     public GameObject fallingBlock;
     bool isGameOver = false;
 
@@ -12,11 +13,6 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(falling());
-    }
-
-    void Update()
-    {
-
     }
 
     IEnumerator falling()
@@ -46,7 +42,7 @@ public class SpawnManager : MonoBehaviour
             GameObject initblock = Instantiate(fallingBlock, new Vector3(pos.x, pos.y + 6, pos.z), Quaternion.identity);
             block.Add(initblock);
 
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(spawnTime);
         }
     }
 }
