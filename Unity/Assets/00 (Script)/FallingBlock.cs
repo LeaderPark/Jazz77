@@ -18,11 +18,16 @@ public class FallingBlock : MonoBehaviour
     {
         if(isAlpha)
         {
-            mesh.material.DOColor(new Color32(255,255,255,100), 1f);
+            mesh.material.DOColor(new Color32(255,255,255,50), 1f);
         }
         else
         {
-            mesh.material.DOColor(new Color32(255,255,255,230), 1f);
+            mesh.material.DOColor(new Color32(255,255,255,255), 1f);
+        }
+
+        if(this.gameObject.transform.localPosition.y == -3f)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -30,18 +35,13 @@ public class FallingBlock : MonoBehaviour
     {
         if(col.gameObject.CompareTag("Tilemap"))
         {
-            // Destroy(this.gameObject);
-            // Destroy(col.gameObject);
+            Destroy(this.gameObject);
+            Destroy(col.gameObject);
         }
         else if(col.gameObject.CompareTag("Player"))
         {
             
         }
-    }
-
-    public void breakBlock()
-    {
-        Destroy(this.gameObject);
     }
 
     IEnumerator isOff()
