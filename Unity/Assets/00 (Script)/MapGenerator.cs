@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public Transform tilePrefab; //Å¸ÀÏ ÇÁ¸®ÆÕ
-    public Vector2 mapSize; //¸Ê »çÀÌÁî
+    public Transform tilePrefab; //Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public Vector2 mapSize; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     [Range(0, 1)]
-    public float outlinePercent; //Å×µÎ¸® ¿µ¿ª
+    public float outlinePercent; //ï¿½×µÎ¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     private void Start()
     {
@@ -30,10 +30,10 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = 0; y < mapSize.y; y++)
             {
-                Vector3 tilePosition = new Vector3(-mapSize.x / 2 + 0.5f + x, 0, mapSize.y / 2 + 0.5f + y);//Å¸ÀÏ À§Ä¡ ¼³Á¤
-                Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right * 90));//Å¸ÀÏ »ý¼º
-                newTile.localScale = Vector3.one * (1 - outlinePercent); //Å×µÎ¸® ¿µ¿ª ¼³Á¤
-                newTile.parent = mapHolder; //ºÎ¸ð ¼³Á¤
+                Vector3 tilePosition = new Vector3(-mapSize.x / 2 + 0.5f + x, 0, mapSize.y / 2 + 0.5f + y); //Å¸ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+                Transform newTile = Instantiate(tilePrefab, tilePosition, Quaternion.Euler(Vector3.right)); //Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                newTile.localScale = Vector3.one * (1 - outlinePercent); //ï¿½×µÎ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                newTile.parent = mapHolder; //ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
         }
         mapHolder.transform.position = transform.localPosition;

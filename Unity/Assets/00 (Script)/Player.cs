@@ -62,10 +62,10 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        // movement.Set(h, 0f, v);
-        // movement = movement.normalized * moveSpeed * Time.deltaTime;
-        // rigid.MovePosition(transform.position + movement);'
-        transform.Translate(new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
+        movement.Set(x, 0f, z);
+        movement = movement.normalized * moveSpeed * Time.deltaTime;
+        rigid.MovePosition(transform.position + movement);
+        //transform.Translate(new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
     }
 
     public Vector3 ClampPosition(Vector3 position)
