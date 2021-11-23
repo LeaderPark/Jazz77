@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpPower = 5f;
 
+    private float degree = 0f;
+
     private bool isDie = false;
     public Transform jumpRayPoint;
     Rigidbody rigid;
     Vector3 movement;   
-    float x, z;
+    float h,v;
 
     RaycastHit rayhit;
 
@@ -24,8 +26,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.localPosition = ClampPosition(transform.localPosition);
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
         
         if(!isDie)
         {
@@ -62,10 +64,25 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        movement.Set(x, 0f, z);
-        movement = movement.normalized * moveSpeed * Time.deltaTime;
-        rigid.MovePosition(transform.position + movement);
-        //transform.Translate(new Vector3(x, 0, z) * moveSpeed * Time.deltaTime);
+        Vector3 dir = Vector3.right * h + Vector3.forward * v;
+        dir.Normalize();
+        transform.position += dir * moveSpeed * Time.deltaTime;
+
+        if(dir == new Vector3(1,0,0))
+            degree = 90f;
+        else if(dir == new Vector3(-1,0,0))
+            degree = 270f;
+        else if(dir == new Vector3(0,0,1))
+            degree = 0f;
+        else if(dir == new Vector3(0,0,-1))
+            degree = 180f;
+
+        float rot = Mathf.LerpAngle(
+            transform.eulerAngles.y, 
+            degree, 
+            Time.deltaTime * 6f);
+
+        transform.eulerAngles = new Vector3(0, rot, 0);
     }
 
     public Vector3 ClampPosition(Vector3 position)
