@@ -18,6 +18,10 @@ public class ClearBlock : MonoBehaviour
 
     public float rayDistance = 82f;
 
+    void Start()
+    {
+        
+    }
     private void Update()
     {
         ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.49f, 0.5f));
@@ -28,4 +32,5 @@ public class ClearBlock : MonoBehaviour
             rayhit.transform.GetComponent<FallingBlock>().isAlpha = true;
         }
     }
+
 }

@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpPower = 5f;
+    public float instantiateBlockCoolTime = 0f;
 
     private float degree = 0f;
 
     private bool isDie = false;
     public Transform jumpRayPoint;
+    public GameObject spawnBlock;
     Rigidbody rigid;
     Vector3 movement;   
     float h,v;
@@ -38,6 +40,16 @@ public class Player : MonoBehaviour
                     Jump();
                 }
             }
+            float coolTime =+ Time.time;
+            Debug.Log(coolTime);
+            if(coolTime >= instantiateBlockCoolTime)
+            {
+                if(Input.GetKeyDown(KeyCode.F))
+                {
+                    InstantiateBlock();
+                    coolTime = 0f;
+                }
+            }
         }
 
         if(this.gameObject.transform.position.y <= -3f)
@@ -45,8 +57,6 @@ public class Player : MonoBehaviour
             isDie = true;
             PopUpManager.instance.OpenPopUp("restart");
         }
-
-        Debug.DrawRay(jumpRayPoint.position, Vector3.down, Color.red, 0.2f);
     }
 
     void FixedUpdate()
@@ -94,5 +104,11 @@ public class Player : MonoBehaviour
             Mathf.Clamp(position.y, -5f, 100f),
             Mathf.Clamp(position.z, 2.2f, 5.8f)
         );
+    }
+
+    public void InstantiateBlock()
+    {
+        Debug.Log("Instantiate Block");
+        Instantiate(spawnBlock, new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z), Quaternion.Euler(-90,0,0));
     }
 }
